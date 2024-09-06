@@ -1,0 +1,34 @@
+{
+  "pacientes": [
+    {
+      "ID": "01",
+      "Faixa_etaria": "55-59",
+      "Sexo_biologico": "Feminino",
+      "Doença_cardiaca": false,
+      "IMC": 25.5,
+      "Fumante": true,
+      "Consumo_alcool": false,
+      "Raça_etnia": "Branca"
+    },
+    {
+      "ID": "02",
+      "Faixa_etaria": "80 ou +",
+      "Sexo_biologico": "Masculino",
+      "Doença_cardiaca": true,
+      "IMC": 30.2,
+      "Fumante": false,
+      "Consumo_alcool": true,
+      "Raça_etnia": "Preta"
+    },
+    {
+      "ID": "03",
+      "Faixa_etaria": "65-69",
+      "Sexo_biologico": "Feminino",
+      "Doença_cardiaca": false,
+      "IMC": 22.8,
+      "Fumante": false,
+      "Consumo_alcool": false,
+      "Raça_etnia": "Amarela"
+    }
+  ]
+}

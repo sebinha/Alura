@@ -1,0 +1,12 @@
+[
+  {
+    "ID": "01",
+    "Faixa_etaria": "55-59",
+    "Sexo_biologico": "Feminino",
+    "Doença_cardiaca": false,
+    "IMC": 25.5,
+    "Fumante": true,
+    "Consumo_alcool": false,
+    "Raça_etnia": "Branca"
+  }
+]

@@ -1,10 +1,13 @@
 import express from "express";
 import dbConnect from "./config/dbConnect.js";
 import routes from "./routes/index.js";
+import mongoose from "mongoose";
+import ErrorSolver from "./middlewares/ErrorSolver.js";
+import middleware404 from "./middlewares/middleware404.js";
 
 const app = express();
-const conexao =  await dbConnect()
 routes(app);
+const conexao = await dbConnect();
 
 conexao.once("open", () => {
   console.log("Conexao estabelecida");
@@ -13,6 +16,9 @@ conexao.once("open", () => {
 conexao.on("error", (stream) => {
   console.log("Erro de conexao: ", stream);
 });
+
+app.use(middleware404);
+app.use(ErrorSolver);
 
 // app.get("/", (req, res) => {
 //   res.status(200).send("Rota do home");

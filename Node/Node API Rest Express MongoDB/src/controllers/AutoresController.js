@@ -1,38 +1,46 @@
-import { autorModel } from "../models/Autores.js";
+import Erro404 from "../err/Erro404.js";
+import { autorModel } from "../models/index.js";
 
 class AutoresController {
-  static async pegaTodosOsAutores(req, res) {
+  static async pegaTodosOsAutores(req, res, next) {
     try {
-      const todosOsAutores = await autorModel.find({});
-      return res.status(200).json(todosOsAutores);
+      const todosOsAutores = autorModel.find();
+
+      req.resultado = todosOsAutores;
+
+      next();
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async cadastraAutor(req, res) {
+  static async cadastraAutor(req, res, next) {
     try {
       const novoAutor = await autorModel.create(req.body);
       return res
         .status(201)
-        .json({ message: "criado com sucesso", Autor: novoAutor });
+        .json({ message: "criado com sucesso", autor: novoAutor });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async pegaUmAutor(req, res) {
+  static async pegaUmAutor(req, res, next) {
     const { id } = req.params;
-    
+    const Autor = await autorModel.findById(id);
+
     try {
-      const Autor = await autorModel.findById(id);
-      return res.status(200).json(Autor);
+      if (Autor !== null) {
+        res.status(200).json(Autor);
+      } else {
+        next(new Erro404("Id do Autor não encontrado"));
+      }
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async atualizaAutor(req, res) {
+  static async atualizaAutor(req, res, next) {
     const { id } = req.params;
     const novosDados = req.body;
     try {
@@ -40,21 +48,29 @@ class AutoresController {
         id,
         novosDados
       );
-      return res
-        .status(200)
-        .json({ message: "Autor atualizado", Autor: AutorAtualizado });
+      if (AutorAtualizado !== null) {
+        return res
+          .status(200)
+          .json({ message: "Autor atualizado", autor: AutorAtualizado });
+      } else {
+        next(new Erro404("Id do Autor não encontrado"));
+      }
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  static async deletaAutor(req, res) {
+  static async deletaAutor(req, res, next) {
     const { id } = req.params;
     try {
-      await autorModel.findByIdAndDelete(id);
-      return res.status(200).json({ message: "Autor deletado" });
+      const autorEncontrado = await autorModel.findByIdAndDelete(id);
+      if (autorEncontrado !== null) {
+        return res.status(200).json({ message: "Autor deletado" });
+      } else {
+        next(new Erro404("Id do Autor não encontrado"));
+      }
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 }

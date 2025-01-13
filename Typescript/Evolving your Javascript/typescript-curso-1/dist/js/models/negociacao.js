@@ -11,4 +11,11 @@ export class Negociacao {
     get getVolume() {
         return this._quantidade * this._valor;
     }
+    static criaAdiciona(dataString, quantidadeString, valorString) {
+        const exp = /-/g;
+        const date = new Date(dataString.replace(exp, '\/'));
+        const quantidade = parseInt(quantidadeString);
+        const valor = parseFloat(valorString);
+        return new Negociacao(date, quantidade, valor);
+    }
 }

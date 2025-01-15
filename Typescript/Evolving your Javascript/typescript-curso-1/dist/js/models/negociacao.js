@@ -18,4 +18,16 @@ export class Negociacao {
         const valor = parseFloat(valorString);
         return new Negociacao(date, quantidade, valor);
     }
+    paraTexto() {
+        return `
+            Data: ${this.getData},
+            Quantidade: ${this._quantidade},
+            Valor: ${this._valor}
+        `;
+    }
+    isIgual(negociacao) {
+        return this.getData.getDate() === negociacao.getData.getDate()
+            && this.getData.getMonth() === negociacao.getData.getMonth()
+            && this.getData.getFullYear() === negociacao.getData.getFullYear();
+    }
 }

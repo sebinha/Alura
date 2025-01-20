@@ -1,10 +1,3 @@
-import Link from "../src/components/Link";
+import HomeScreen from "../src/screens/HomeScreen";
 
-export default function Home() {
-    return (
-        <>
-            <h1>Home</h1>
-            <Link href="/faq">Página do FAQ</Link>
-        </>
-    );
-};
+export default HomeScreen;

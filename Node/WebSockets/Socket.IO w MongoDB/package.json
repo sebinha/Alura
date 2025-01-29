@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server-io.js"
+    "dev": "nodemon server/server-io.js"
   },
   "dependencies": {
     "express": "^4.21.2",

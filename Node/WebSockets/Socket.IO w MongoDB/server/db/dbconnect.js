@@ -5,17 +5,18 @@ const uri =
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri);
 
-let documentosColecao;
+let documentosColecao, usuariosColecao;
 
 try {
   await client.connect();
 
   const database = client.db("alura");
-  const collection = database.collection("documentos");
+  documentosColecao = database.collection("documentos");
+  usuariosColecao = database.collection("usuarios");
 
-  documentosColecao = collection;
+  
 } catch (e) {
   console.error(e);
 }
 
-export { documentosColecao };
+export { documentosColecao, usuariosColecao };

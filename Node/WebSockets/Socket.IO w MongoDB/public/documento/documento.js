@@ -6,8 +6,10 @@ const nomeDocumento = url.get("nome");
 const texto = document.getElementById("editor-texto");
 const tituloDocumento = document.getElementById("titulo-documento");
 const botaoExcluir = document.getElementById("excluir-documento");
+const documento = document.getElementById("documento");
 
 tituloDocumento.textContent = nomeDocumento || "Novo Documento";
+documento.textContent = nomeDocumento || "Novo Documento";
 botaoExcluir.addEventListener("click", () => excluirDocumento(nomeDocumento));
 
 texto.addEventListener("keyup", () => {

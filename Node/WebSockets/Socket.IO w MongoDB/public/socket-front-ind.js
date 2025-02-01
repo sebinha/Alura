@@ -1,6 +1,17 @@
+import { lerCookie } from "./utils/cookies.js";
+
 import { excluirLinkDocumento, inserirLinkDocumento } from "./index.js";
 
-const socket = io();
+const socket = io("/usuarios", {
+  auth: {
+    token: lerCookie("jwt"), // Ler o token do cookie
+  },
+});
+
+socket.on("connect_error", (err) => {
+  alert(err);
+  window.location.href = "/login/index.html";
+});
 
 socket.on("documento_excluido", (titulo) => {
   excluirLinkDocumento(titulo);

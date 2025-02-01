@@ -6,12 +6,12 @@ function CadastroEvents(socket, io) {
     if (usuario === null) {
       const resultado = await cadastrarUsuario(dados);
       if (resultado.acknowledged) {
-        io.emit("usuario_cadastrado");
+        socket.emit("usuario_cadastrado");
       } else {
-        io.emit("usuario_nao_cadastrado");
+        socket.emit("usuario_nao_cadastrado");
       }
     } else {
-      io.emit("usuario_existente");
+      socket.emit("usuario_existente");
     }
   });
 }

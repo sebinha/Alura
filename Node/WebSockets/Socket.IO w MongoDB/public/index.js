@@ -1,14 +1,21 @@
 import { inserirDocumento } from "./socket-front-ind.js";
+import { removerCookie } from "./utils/cookies.js";
 
 const listaDocumentos = document.getElementById("lista-documentos");
 const form = document.getElementById("form-adiciona-documento");
 const input = document.getElementById("input-documento");
+const botaoLogout = document.getElementById("botao-logout");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   inserirDocumento(input.value);
-  console.log(input.value);
   input.value = "";
+});
+
+botaoLogout.addEventListener("click", () => {
+  removerCookie("jwt");
+  alert("Deslogado com sucesso!");
+  window.location.href = "/login/index.html";
 });
 
 function inserirLinkDocumento(titulo) {

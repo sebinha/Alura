@@ -2,6 +2,8 @@ import { CardPost } from "@/components/CardPost";
 import logger from "@/utils/logger.js";
 import styles from "./page.module.css";
 import Link from "next/link";
+import prisma from "../../prisma/db.js";
+
 
 // const post = {
 //   "id": 1,
@@ -18,16 +20,31 @@ import Link from "next/link";
 //   }
 // }
 
+
 async function getAllPosts(page) {
+  const perPage = 6;
+  const skip = (page - 1) * perPage;
+
   try {
-    const response = await fetch(
-      `http://localhost:3001/posts?_page=${page}&_per_page=6`
-    );
-    if (!response.ok) throw new Error("Falha na rede");
-    return response.json();
+    const posts = await prisma.post.findMany({
+      skip,
+      take: perPage,
+      include: {
+        author: true,
+      },
+    });
+
+    const totalPosts = await prisma.post.count();
+    const totalPages = Math.ceil(totalPosts / perPage);
+
+    return {
+      data: posts,
+      prev: page > 1 ? page - 1 : null,
+      next: page < totalPages ? page + 1 : null,
+    };
   } catch (error) {
-    logger.error("Ops, algo correu mal: " + error.message);
-    return [];
+    logger.error("Ops, algo deu errado: " + error.message);
+    return { data: [], prev: null, next: null };
   }
 }
 

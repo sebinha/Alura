@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -15,7 +14,7 @@ datasource db {
 }
 
 model Author {
-  id       String @id @default(cuid())
+  id       Int    @id @default(autoincrement())
   name     String
   username String @unique
   avatar   String
@@ -23,14 +22,14 @@ model Author {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   cover     String
   title     String
   body      String
   slug      String   @unique
   markdown  String
   author    Author   @relation(fields: [authorId], references: [id])
-  authorId  String
+  authorId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

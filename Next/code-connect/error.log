@@ -84,3 +84,4 @@
 {"level":"error","message":"Erro ao obter posts: Nenhum post encontrado com o slug: construindo-spa-com-vuej","service":"user-service"}
 {"level":"error","message":"Nenhum post encontrado com o slug: construindo-spa-com-vuej","service":"user-service"}
 {"level":"error","message":"Erro ao obter posts: Nenhum post encontrado com o slug: construindo-spa-com-vuej","service":"user-service"}
+{"level":"error","message":"Ops, algo deu errado: \nInvalid `prisma.post.findMany()` invocation:\n\n\nThe table `public.Post` does not exist in the current database.","service":"user-service"}

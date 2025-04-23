@@ -21,16 +21,26 @@ import prisma from "../../prisma/db.js";
 // }
 
 
-async function getAllPosts(page) {
+async function getAllPosts(page, query) {
   const perPage = 6;
   const skip = (page - 1) * perPage;
+
 
   try {
     const posts = await prisma.post.findMany({
       skip,
       take: perPage,
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         author: true,
+      },
+      where: {
+        title: {
+          contains: query || "",
+          mode: "insensitive",
+        },
       },
     });
 
@@ -49,9 +59,11 @@ async function getAllPosts(page) {
 }
 
 export default async function Home({ searchParams }) {
-  const { page } = await searchParams;
+  const { page, q } = await searchParams;
 
-  const { data: posts, prev, next } = await getAllPosts(page || 1);
+  const pages = parseInt(page || 1)
+
+  const { data: posts, prev, next } = await getAllPosts(pages, q);
 
   return (
     <main className={styles.grid}>
@@ -59,8 +71,8 @@ export default async function Home({ searchParams }) {
         <CardPost key={post.id} post={post} />
       ))}
       <div className={styles.links}>
-        {next && <Link href={`/?page=${next}`}>Próxima página</Link>}
-        {prev && <Link href={`/?page=${prev}`}>Página anterior</Link>}
+        {next && <Link href={{ pathname: "/", query: { page: next, q} }}>Próxima página</Link>}
+        {prev && <Link href={{ pathname: "/", query: { page: prev, q} }}>Página anterior</Link>}
       </div>
     </main>
   );

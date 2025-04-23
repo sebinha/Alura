@@ -4,32 +4,35 @@ import { remark } from "remark";
 import html from "remark-html";
 import styles from "./page.module.css";
 import prisma from "../../../../prisma/db";
+import { redirect } from "next/dist/server/api-utils";
+import { notFound } from "next/navigation";
 
 async function getPostsBySlug(slug) {
-  const response = await prisma.post.findMany({
-    where: {
-      slug: slug,
-    },
-    include: {
-      author: true,
-    },
-  });
+  try {
+    const response = await prisma.post.findFirst({
+      where: {
+        slug: slug,
+      },
+      include: {
+        author: true,
+      },
+    });
 
+    if (!response) {
+      logger.error("Nenhum post encontrado com o slug: " + slug);
+      throw new Error("Nenhum post encontrado com o slug: " + slug);
+    }
+    logger.info("Posts obtidos com sucesso");
 
-  if (response.length == 0) {
-    logger.error("Nenhum post encontrado com o slug: " + slug);
-    return {};
+    const processedContent = await remark().use(html).process(response.markdown);
+    const contentHtml = processedContent.toString();
+    response.markdown = contentHtml;
+
+    return response;
+  } catch (error) {
+    logger.error("Erro ao obter posts: " + error.message);
   }
-  logger.info("Posts obtidos com sucesso");
-
-  const post = response[0];
-
-  const processedContent = await remark().use(html).process(post.markdown);
-  const contentHtml = processedContent.toString();
-
-  post.markdown = contentHtml;
-
-  return post;
+  notFound()
 }
 
 const PagePost = async ({ params }) => {

@@ -20,6 +20,7 @@ model Author {
   username String @unique
   avatar   String
   posts    Post[]
+  comments Comment[]
 }
 
 model Post {
@@ -33,4 +34,20 @@ model Post {
   authorId  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  comments Comment[]
+  likes    Int      @default(0)
+}
+
+model Comment{
+  id        Int      @id @default(autoincrement())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+  author    Author   @relation(fields: [authorId], references: [id])
+  authorId  Int
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  parentId  Int?
+  parent    Comment? @relation("CommentToComment", fields: [parentId], references: [id])
+  children  Comment[] @relation("CommentToComment")
 }

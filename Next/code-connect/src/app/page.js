@@ -68,7 +68,7 @@ export default async function Home({ searchParams }) {
   return (
     <main className={styles.grid}>
       {posts.map((post) => (
-        <CardPost key={post.id} post={post} />
+        <CardPost key={post.id} post={post} isHome />
       ))}
       <div className={styles.links}>
         {next && <Link href={{ pathname: "/", query: { page: next, q} }}>Próxima página</Link>}

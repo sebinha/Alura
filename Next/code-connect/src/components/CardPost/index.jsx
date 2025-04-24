@@ -3,10 +3,9 @@ import { Avatar } from "../Avatar";
 import styles from "./card.module.css";
 import Link from "next/link";
 
-export const CardPost = ({ post, highlight }) => {
+export const CardPost = ({ post, highlight, isHome = false }) => {
   return (
-    <Link href={`/posts/${post.slug}`} style={{ textDecoration: "none" }}>
-      <article className={styles.card} style={{ width: highlight ? 993 : 486 }}>
+    <article className={styles.card} style={{ width: highlight ? 993 : 486 }}>
         <header className={styles.header}>
           <figure style={{ height: highlight ? 300 : 133 }}>
             <Image
@@ -19,11 +18,11 @@ export const CardPost = ({ post, highlight }) => {
         <section className={styles.body}>
           <h2>{post.title}</h2>
           <p>{post.body}</p>
+        { isHome ? <Link href={`/posts/${post.slug}`}>Ver mais</Link> : null}
         </section>
         <footer className={styles.footer}>
           <Avatar imageSrc={post.author.avatar} name={post.author.username} />
         </footer>
       </article>
-    </Link>
   );
 };

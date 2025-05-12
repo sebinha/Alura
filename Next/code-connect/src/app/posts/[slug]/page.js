@@ -15,6 +15,7 @@ async function getPostsBySlug(slug) {
       },
       include: {
         author: true,
+        comments: true,
       },
     });
 

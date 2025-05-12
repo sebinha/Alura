@@ -31,10 +31,11 @@ async function getAllPosts(page, query) {
       skip,
       take: perPage,
       orderBy: {
-        createdAt: "desc",
+        id: "desc",
       },
       include: {
         author: true,
+        comments: true,
       },
       where: {
         title: {

@@ -4,8 +4,8 @@ import { remark } from "remark";
 import html from "remark-html";
 import styles from "./page.module.css";
 import prisma from "../../../../prisma/db";
-import { redirect } from "next/dist/server/api-utils";
 import { notFound } from "next/navigation";
+import { CommentsList } from "@/components/CommentsList";
 
 async function getPostsBySlug(slug) {
   try {
@@ -15,7 +15,19 @@ async function getPostsBySlug(slug) {
       },
       include: {
         author: true,
-        comments: true,
+        comments: {
+          where: {
+            parentId: null,
+          },
+          include: {
+            author: true,
+            children: {
+              include: {
+                author: true,
+              },
+            },
+          },
+        },
       },
     });
 
@@ -25,7 +37,9 @@ async function getPostsBySlug(slug) {
     }
     logger.info("Posts obtidos com sucesso");
 
-    const processedContent = await remark().use(html).process(response.markdown);
+    const processedContent = await remark()
+      .use(html)
+      .process(response.markdown);
     const contentHtml = processedContent.toString();
     response.markdown = contentHtml;
 
@@ -33,7 +47,7 @@ async function getPostsBySlug(slug) {
   } catch (error) {
     logger.error("Erro ao obter posts: " + error.message);
   }
-  notFound()
+  notFound();
 }
 
 const PagePost = async ({ params }) => {
@@ -46,6 +60,9 @@ const PagePost = async ({ params }) => {
       <h3 className={styles.subtitle}>Código:</h3>
       <div className={styles.code}>
         <div dangerouslySetInnerHTML={{ __html: post.markdown }} />
+      </div>
+      <div>
+        <CommentsList comments={post.comments} />
       </div>
     </div>
   );

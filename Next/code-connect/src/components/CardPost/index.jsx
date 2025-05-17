@@ -28,7 +28,7 @@ export const CardPost = ({ post, highlight, isHome = false }) => {
         {isHome ? <Link href={`/posts/${post.slug}`}>Ver mais</Link> : null}
       </section>
       <footer className={styles.footer}>
-        <div>
+        <div className={styles.actions}>
           <form action={submitLike}>
             <ThumbsUpSpinner />
             <p>{post.likes}</p>

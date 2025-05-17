@@ -52,3 +52,12 @@
     font-size: 15px;
     text-align: center;
 }
+
+.actions {
+    display: flex;
+}
+
+.link {
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -6,7 +6,7 @@ import { IconButton } from "../IconButton";
 import { Chat } from "../icons/Chat";
 import { TextArea } from "../TextArea";
 import { CommentButton } from "../CommentButton";
-import styles from "./modalComments.module.css";
+import styles from "./modalcomments.module.css";
 import { Subheading } from "../Subheading";
 
 export default function ModalComments({ action }) {

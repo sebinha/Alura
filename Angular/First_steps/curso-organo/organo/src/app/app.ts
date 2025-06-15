@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
-import { Livro } from './components/livro/livro';
+import { ListaLivros } from './components/lista-livros/lista-livros';
 
 @Component({
   selector: 'app-root',
-  imports: [Header, Footer, Livro],
+  imports: [Header, Footer, ListaLivros],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -1,0 +1,77 @@
+.generos {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 160px;
+}
+
+.livros-genero {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.linha-destaque--pequena {
+  width: 32px;
+}
+
+.texto-h3-prata {
+  font-family: var(--font-prata);
+  font-size: 28px;
+  font-weight: var(--font-weight-normal);
+  line-height: 38px;
+  text-align: center;
+}
+
+.sem-livros img {
+  width: 150px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+.texto-sem-livros {
+  text-align: center;
+  margin-top: 16px;
+  color: #3b3b3b;
+  font-size: 20px;
+}
+
+.romance {
+  background-color: #e8ffff;
+}
+
+.generos .romance {
+  border-bottom: 4px solid #82cffa;
+}
+
+.misterio {
+  background-color: #e9ffe3;
+}
+
+.generos .misterio {
+  border-bottom: 4px solid #a6d157;
+}
+
+.fantasia {
+  background-color: #ffe3e3;
+}
+
+.generos .fantasia {
+  border-bottom: 4px solid #e06b69;
+}
+
+.ficcao-cientifica {
+  background-color: #fff0fa;
+}
+
+.generos .ficcao-cientifica {
+  border-bottom: 4px solid #db6ebf;
+}
+
+.tecnicos {
+  background-color: #fff1e4;
+}
+
+.generos .tecnicos {
+  border-bottom: 4px solid #ff8a29;
+}

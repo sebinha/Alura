@@ -1,21 +1,29 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input } from '@angular/core';
 
+export interface ILivro {
+  titulo: string;
+  autoria: string;
+  imagem: string;
+  favorito: boolean;
+  genero: IGeneroLiterario;
+}
+
+export interface IGeneroLiterario {
+  id: string;
+  value: string;
+  livros: ILivro[];
+}
 @Component({
   selector: 'app-livro',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './livro.html',
   styleUrl: './livro.scss',
 })
 export class Livro {
-  changeFavorito() {
-    this.livro.favorito = !this.livro.favorito;
-  }
+  livro = input.required<ILivro>();
 
-  livro = {
-    titulo: 'Clair Obscur: Expedition 33',
-    autoria: 'Sandfall Interactive',
-    imagem:
-      'https://static.wixstatic.com/media/52610a_f363958f0b5e4ea1b7e5f4c5ff87a317~mv2.png/v1/fill/w_548,h_358,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Journal.png',
-    favorito: false,
-  };
+  changeFavorito() {
+    this.livro().favorito = !this.livro().favorito;
+  }
 }

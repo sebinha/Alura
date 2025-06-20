@@ -1,6 +1,6 @@
 import { Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TipoTransacao, Transacao } from '../transacao';
+import { TipoTransacao, TransacaoClass } from '../transacao';
 import { KeyValuePipe } from '@angular/common';
 
 @Component({
@@ -10,7 +10,7 @@ import { KeyValuePipe } from '@angular/common';
   styleUrl: './form-nova-transacao.scss',
 })
 export class FormNovaTransacao {
-  transacaoCriada = output<Transacao>();
+  transacaoCriada = output<TransacaoClass>();
 
   valorTransacao = '';
   tipoTransacao = '';
@@ -18,7 +18,7 @@ export class FormNovaTransacao {
   tipoTransacaoEnum = TipoTransacao;
 
   onSubmit() {
-    const transacao = new Transacao(
+    const transacao = new TransacaoClass(
       this.tipoTransacao as TipoTransacao,
       Number(this.valorTransacao)
     );

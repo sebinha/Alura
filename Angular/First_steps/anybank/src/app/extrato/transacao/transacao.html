@@ -1,0 +1,7 @@
+<div class="transacao">
+  <span class="valor"
+    >{{ transacao().tipo !== "Deposito" ? '-' : '+' }}{{ transacao().valor |
+    currency:'BRL' }}</span
+  >
+  <span class="data">{{ transacao().data| date:'dd/MM/yyyy HH:mm' }}</span>
+</div>

@@ -1,16 +1,17 @@
 import { Component, computed, signal } from '@angular/core';
 import { Banner } from './banner/banner';
 import { FormNovaTransacao } from './form-nova-transacao/form-nova-transacao';
-import { TipoTransacao, Transacao } from './transacao';
+import { TipoTransacao, TransacaoClass } from './transacao';
+import { Extrato } from './extrato/extrato';
 
 @Component({
   selector: 'app-root',
-  imports: [Banner, FormNovaTransacao],
+  imports: [Banner, FormNovaTransacao, Extrato],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  transacoes = signal<Transacao[]>([]);
+  transacoes = signal<TransacaoClass[]>([]);
 
   saldo = computed(() => {
     return this.transacoes().reduce((acumulador, transacao) => {
@@ -24,7 +25,7 @@ export class App {
       }
     }, 0);
   });
-  processarTransacao(event: Transacao) {
+  processarTransacao(event: TransacaoClass) {
     if (event.tipo === TipoTransacao.SAQUE && event.valor > this.saldo()) {
       return alert('Saldo insuficiente');
     }
